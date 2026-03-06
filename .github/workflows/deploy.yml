@@ -17,7 +17,7 @@ jobs:
         run: echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
       - name: Build Docker Image
-        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/anu-nginx-ci-cd:latest .
+        run: docker build -t anu969/anu123-nginx-ci-cd:latest .
 
       - name: Push Docker Image
-        run: docker push ${{ secrets.DOCKER_USERNAME }}/anu-nginx-ci-cd:latest
+        run: docker push anu969/anu123-nginx-ci-cd:latest
