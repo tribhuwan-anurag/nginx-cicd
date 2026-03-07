@@ -1,23 +1,9 @@
-name: Docker CI/CD
-
-on:
-  push:
-    branches:
-      - main
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-
-      - name: Login to DockerHub
-        run: echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
-
-      - name: Build Docker Image
-        run: docker build -t anu969/anu123-nginx-ci-cd:latest .
-
-      - name: Push Docker Image
-        run: docker push anu969/anu123-nginx-ci-cd:latest
+- name: Update Kubernetes Deployment
+  uses: appleboy/ssh-action@master
+  with:
+    host: ${{ secrets.EC2_HOST }}
+    username: ${{ secrets.EC2_USER }}
+    key: ${{ secrets.EC2_KEY }}
+    script: |
+      kubectl set image deployment/nginx-cicd-deployment \
+      nginx-cicd-container=anu969/anu123-nginx-ci-cd:latest
