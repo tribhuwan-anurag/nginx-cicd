@@ -29,4 +29,6 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_KEY }}
           script: |
+            export KUBECONFIG=$HOME/.kube/config
             kubectl set image deployment/nginx-cicd-deployment nginx-cicd-container=anu969/anu123-nginx-ci-cd:latest
+            kubectl rollout status deployment/nginx-cicd-deployment
