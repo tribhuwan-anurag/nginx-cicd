@@ -48,3 +48,64 @@ Kubernetes performs a rolling update to deploy the new application version witho
 ---
 
 ## Project Structure
+
+
+nginx-cicd/
+│
+├── Dockerfile
+├── index.html
+├── deployment.yaml
+├── service.yaml
+│
+└── .github/
+└── workflows/
+└── deploy.yml
+
+
+---
+
+## Deployment Flow
+
+1. Developer pushes code
+2. GitHub Actions triggers pipeline
+3. Docker image is built
+4. Image pushed to DockerHub
+5. Kubernetes deployment updated
+6. Pods restart with new version
+
+---
+
+## Kubernetes Components
+
+Deployment
+Manages pod lifecycle and scaling.
+
+Pods
+Run the containerized application.
+
+Service
+Exposes the application to external traffic.
+
+---
+
+## Rolling Updates
+
+Kubernetes ensures zero-downtime deployments by gradually replacing old pods with new ones.
+
+---
+
+## Future Improvements
+
+Possible production improvements include:
+
+- Kubernetes Ingress Controller
+- HTTPS using TLS certificates
+- Horizontal Pod Autoscaling
+- Monitoring with Prometheus and Grafana
+- Infrastructure as Code using Terraform
+
+---
+
+## Author
+
+Anurag Tribhuwan
