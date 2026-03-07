@@ -6,12 +6,11 @@ on:
       - main
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-
-      - name: Checkout Repository
+      - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Login to DockerHub
@@ -23,12 +22,11 @@ jobs:
       - name: Push Docker Image
         run: docker push anu969/anu123-nginx-ci-cd:latest
 
-      - name: Update Kubernetes Deployment
+      - name: Deploy to Kubernetes on EC2
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_KEY }}
           script: |
-            kubectl set image deployment/nginx-cicd-deployment \
-            nginx-cicd-container=anu969/anu123-nginx-ci-cd:latest
+            kubectl set image deployment/nginx-cicd-deployment nginx-cicd-container=anu969/anu123-nginx-ci-cd:latest
